@@ -1,0 +1,214 @@
+/* ==========================================================================
+   Gestor Documental — Escuela Básica G-733 Chorombo Bajo
+   Estilos propios. Bootstrap 5 aporta la base; aquí solo va lo específico
+   del proyecto, para no reescribir lo que el framework ya resuelve.
+   ========================================================================== */
+
+:root {
+  /* Paleta institucional. Los colores de texto se eligieron verificando el
+     contraste contra su fondo (WCAG 2.1, criterio 1.4.3: mínimo 4.5:1). */
+  --azul-escuela: #1b3a5c;
+  --azul-oscuro: #14293f;
+  --gris-texto: #333333;
+  --gris-borde: #dee2e6;
+}
+
+body {
+  background-color: #f5f7fa;
+  color: var(--gris-texto);
+}
+
+/* El gris que trae Bootstrap para .text-secondary (#6c757d) alcanza 4.37:1
+   sobre nuestro fondo, por debajo del mínimo de 4.5:1 que exige WCAG 1.4.3.
+   Se oscurece levemente para cumplir sin cambiar el aspecto de la interfaz. */
+.text-secondary {
+  color: #5a6570 !important;
+}
+
+/* --------------------------------------------------------------------------
+   Accesibilidad: foco siempre visible (WCAG 2.4.7).
+   Nunca se usa outline:none sin reemplazarlo por otra marca visible.
+   -------------------------------------------------------------------------- */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+.page-link:focus-visible {
+  outline: 3px solid #ffc107;
+  outline-offset: 2px;
+}
+
+/* Enlace para saltar al contenido: aparece solo al navegar con teclado. */
+.salto-contenido {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 1080;
+  background-color: #ffffff;
+  color: var(--azul-escuela);
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------- Barra superior */
+.barra-superior {
+  background-color: var(--azul-escuela);
+}
+
+.barra-superior .navbar-brand {
+  font-weight: 600;
+  line-height: 1.15;
+}
+
+.barra-superior .escuela {
+  font-size: 0.75rem;
+  font-weight: 400;
+  /* Blanco al 85 %: mantiene el contraste sobre el azul institucional. */
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Indicador de conexión con la API.
+   El estado NO se comunica solo con color: junto al punto siempre hay texto
+   ("API conectada" / "API sin conexión"), porque el color por sí solo no es
+   accesible para personas con daltonismo (WCAG 1.4.1). */
+.estado-api {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.punto-estado {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background-color: #adb5bd;
+  flex-shrink: 0;
+}
+
+.punto-estado.conectado { background-color: #58d68d; }
+.punto-estado.desconectado { background-color: #ec7063; }
+
+/* ------------------------------------------------------------ Tarjetas resumen */
+.tarjeta-resumen {
+  border: 1px solid var(--gris-borde);
+  border-radius: 0.5rem;
+  background-color: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Solo las tarjetas que son botones responden al puntero. */
+button.tarjeta-resumen:hover,
+button.tarjeta-resumen:focus-visible {
+  transform: translateY(-2px);
+  box-shadow: 0 0.35rem 0.75rem rgba(27, 58, 92, 0.15);
+  cursor: pointer;
+}
+
+.tarjeta-resumen .numero {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--azul-escuela);
+  line-height: 1.1;
+}
+
+.tarjeta-resumen .etiqueta {
+  font-size: 0.8rem;
+  color: #5a6570; /* contraste 5.1:1 sobre blanco */
+}
+
+.tarjeta-total {
+  background-color: var(--azul-escuela);
+}
+
+.tarjeta-total .numero,
+.tarjeta-total .etiqueta {
+  color: #ffffff;
+}
+
+/* ---------------------------------------------------------------- Filtros */
+.tarjeta-filtros {
+  border: 1px solid var(--gris-borde);
+  border-radius: 0.5rem;
+}
+
+/* ---------------------------------------------------------------- Tabla */
+.tabla-documentos thead th {
+  background-color: var(--azul-escuela);
+  color: #ffffff;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: none;
+}
+
+.tabla-documentos td,
+.tabla-documentos th {
+  vertical-align: middle;
+}
+
+.celda-descripcion {
+  max-width: 22rem;
+  font-size: 0.9rem;
+  color: #5a6570;
+}
+
+/* Distintivos por tipo documental.
+   Todos usan texto oscuro sobre fondo claro para asegurar el contraste.
+
+   La regla general define SOLO la tipografía y un color por defecto. El color
+   de cada tipo va en reglas con la misma especificidad (.badge.tipo-xxx), para
+   que no las pise la regla general y cada tipo se distinga de verdad. */
+.badge[class*='tipo-'] {
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.4em 0.7em;
+}
+
+.badge.tipo-memo                   { background-color: #d9e7f5; color: #16405f; }
+.badge.tipo-oficio                 { background-color: #d8ecdd; color: #1c4a2b; }
+.badge.tipo-citacion_apoderado     { background-color: #fdeacd; color: #6b4708; }
+.badge.tipo-acuerdo_apoderados     { background-color: #e6ddf3; color: #452a6b; }
+.badge.tipo-reunion_comunal        { background-color: #cfeef1; color: #114a51; }
+.badge.tipo-permiso_administrativo { background-color: #f8dcdc; color: #6f2020; }
+
+/* --------------------------------------------------------------- Formulario */
+.obligatorio {
+  color: #b02a37;
+  font-weight: 700;
+}
+
+.modal-header {
+  background-color: #f0f3f7;
+}
+
+/* ------------------------------------------------------------------- Pie */
+.pie {
+  background-color: #ffffff;
+  border-top: 1px solid var(--gris-borde);
+}
+
+/* --------------------------------------------------------------- Responsivo */
+@media (max-width: 767.98px) {
+  /* En pantallas pequeñas la descripción ocupa demasiado y hace ilegible la
+     tabla; se oculta y el dato sigue disponible en el detalle. */
+  .tabla-documentos th:nth-child(4),
+  .tabla-documentos td:nth-child(4) {
+    display: none;
+  }
+
+  .tarjeta-resumen .numero {
+    font-size: 1.3rem;
+  }
+}
+
+/* Respeta la preferencia del sistema de reducir animaciones (WCAG 2.3.3). */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation-duration: 0.01ms !important;
+  }
+}
