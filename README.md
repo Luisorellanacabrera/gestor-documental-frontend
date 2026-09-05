@@ -560,6 +560,7 @@ sección 8 y el ajuste `modal-dialog-scrollable` del formulario.
 
 | Evidencia | Archivo |
 |---|---|
+| Informe formal de la evaluación | `docs/Informe_Eva3_Frontend_G733.docx` y `.pdf` |
 | Integración y consumo de endpoints | `docs/evidencia_integracion.md` |
 | Prueba de accesibilidad | `docs/evidencia_accesibilidad.md` |
 | Optimizaciones medidas | `docs/evidencia_optimizacion.md` |
